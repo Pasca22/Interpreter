@@ -12,6 +12,7 @@ public class CompoundStatement implements IStatement {
         return "(" + firstStatement.toString() + ";" + secondStatement.toString() + ")";
     }
 
+    @Override
     public ProgramState execute(ProgramState state) {
         MyIStack<IStatement> stack = state.getStack();
         stack.push(secondStatement);

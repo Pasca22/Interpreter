@@ -14,6 +14,8 @@ public class IfStatement implements IStatement {
         elseStatement =el;
     }
     public String toString(){ return "(IF("+ expression.toString()+") THEN(" + thenStatement.toString() +")ELSE("+ elseStatement.toString()+"))";}
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception{
 
         return state;
