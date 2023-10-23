@@ -8,9 +8,13 @@ public class ProgramState {
     MyIDictionary<String, IValue> systemTable;
     MyIList<IValue> outputList;
 
-    public MyIStack getStack() {
+    public MyIStack<IStatement> getStack() {
         return exeStack;
     }
+
+    public MyIDictionary<String, IValue> getDictionary() { return systemTable; }
+
+    public MyIList<IValue> getOutputList() { return outputList; }
 
     IStatement originalProgram;
 }

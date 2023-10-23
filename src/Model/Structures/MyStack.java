@@ -3,15 +3,15 @@ package Model.Structures;
 import java.util.Stack;
 public class MyStack<T> implements MyIStack<T> {
 
-    Stack<T> stack;
+    Stack<T> stack = new Stack<>();
 
     @Override
     public T pop() {
-        return null;
+        return stack.pop();
     }
 
     @Override
     public void push(T value) {
-
+        stack.push(value);
     }
 }

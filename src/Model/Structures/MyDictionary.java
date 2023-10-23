@@ -1,8 +1,10 @@
 package Model.Structures;
 
-import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MyDictionary<K, V> implements MyIDictionary<K, V> {
 
-    Dictionary<K, V> dictionary;
+    Map<K, V> dictionary = new HashMap<>();
+
 }

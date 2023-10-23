@@ -3,5 +3,5 @@ package Model.Values;
 import Model.Types.IType;
 
 public interface IValue {
-    IType getValue();
+    public IType getType();
 }

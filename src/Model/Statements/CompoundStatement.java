@@ -1,6 +1,7 @@
 package Model.Statements;
 
 import Model.Structures.MyIStack;
+import Model.Structures.MyStack;
 import Model.Structures.ProgramState;
 
 public class CompoundStatement implements IStatement {

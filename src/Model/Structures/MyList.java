@@ -1,8 +1,9 @@
 package Model.Structures;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyList<T> implements MyIList<T> {
 
-    ArrayList<T> list;
+    List<T> list = new ArrayList<>();
 }
