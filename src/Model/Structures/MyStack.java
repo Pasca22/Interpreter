@@ -14,4 +14,9 @@ public class MyStack<T> implements MyIStack<T> {
     public void push(T value) {
         stack.push(value);
     }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
+    }
 }
