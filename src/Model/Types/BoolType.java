@@ -1,8 +1,16 @@
 package Model.Types;
 
-public class BoolType {
+import Model.Values.BoolValue;
+import Model.Values.IValue;
+
+public class BoolType implements IType{
     public boolean equals(Object newObject){
         return newObject instanceof IntType;
     }
     public String toString() { return "bool";}
+
+    @Override
+    public IValue defaultValue() {
+        return new BoolValue(false);
+    }
 }

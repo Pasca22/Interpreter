@@ -1,5 +1,6 @@
 package Model.Statements;
 
+import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
 import Model.Structures.MyIStack;
 import Model.Structures.MyIDictionary;
@@ -21,13 +22,13 @@ public class AssignmentState implements IStatement {
 
         if (systemTable.isDefined(id)) {
             IValue val = expression.evaluation(systemTable);
-            IType typId = (systemTable.lookup(id)).getType();
+            IType typId = systemTable.lookup(id).getType();
             if (val.getType().equals(typId)) {
                 systemTable.update(id, val);
             } else
-                throw new Exception("declared type of variable" + id + " and type of the assigned expression do not match");
+                throw new MyException("declared type of variable" + id + " and type of the assigned expression do not match");
         } else
-            throw new Exception("the used variable" + id + " was not declared before");
+            throw new MyException("the used variable" + id + " was not declared before");
         return state;
     }
 }

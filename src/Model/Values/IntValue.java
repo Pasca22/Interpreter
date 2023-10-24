@@ -5,8 +5,7 @@ import Model.Types.IntType;
 
 public class IntValue implements IValue{
     int value;
-    public IntValue(int v){
-        value =v;}
+    public IntValue(int v) { value =v; }
     public int getValue() {return value;}
     public String toString(){return "" + value;};
     @Override

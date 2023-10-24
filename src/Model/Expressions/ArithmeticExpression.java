@@ -1,14 +1,23 @@
 package Model.Expressions;
 
+import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
 import Model.Values.IValue;
 import Model.Values.IntValue;
 import Model.Types.IntType;
 
+import java.util.Objects;
+
 public class ArithmeticExpression implements Expression {
 
     Expression e1, e2;
-    int operand; // 1-plus, 2-minus, 3-star, 4-divide
+    String operand; // "+"-plus, "-"-minus, "*"-star, "/"-divide
+
+    public ArithmeticExpression(String op, Expression ex1, Expression ex2) {
+        operand = op;
+        e1 = ex1;
+        e2 = ex2;
+    }
 
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
@@ -22,16 +31,16 @@ public class ArithmeticExpression implements Expression {
                 int n1, n2;
                 n1 = i1.getValue();
                 n2 = i2.getValue();
-                if (operand == 1) return new IntValue(n1 + n2);
-                if (operand == 2) return new IntValue(n1 - n2);
-                if (operand == 3) return new IntValue(n1 * n2);
-                if (operand == 4)
-                    if (n2 == 0) throw new Exception("division by zero");
+                if (Objects.equals(operand, "+")) return new IntValue(n1 + n2);
+                if (Objects.equals(operand, "-")) return new IntValue(n1 - n2);
+                if (Objects.equals(operand, "*")) return new IntValue(n1 * n2);
+                if (Objects.equals(operand, "/"))
+                    if (n2 == 0) throw new MyException("division by zero");
                     else return new IntValue(n1 / n2);
             } else
-                throw new Exception("second operand is not an integer");
+                throw new MyException("second operand is not an integer");
         } else
-            throw new Exception("first operand is not an integer");
+            throw new MyException("first operand is not an integer");
         return null;
     }
 }

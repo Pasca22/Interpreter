@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Exceptions.MyException;
 import Model.Statements.IStatement;
 import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
@@ -13,22 +14,27 @@ public class Controller {
     ProgramState oneStep(ProgramState state) throws Exception {
         MyIStack<IStatement> stack = state.getStack();
         if(stack.isEmpty()) {
-            throw new Exception("Program state stack is empty");
+            throw new MyException("Program state stack is empty");
         }
         IStatement createdStatement = stack.pop();
         return createdStatement.execute(state);
     }
 
-    void allSteps(){
-        ProgramState programState = repository.getCurrentProgramState(); // repo is the controller field of type MyRepoInterface
-        //here you can display the programState state
-        while (!programState.getStack().isEmpty()){
+    void allSteps() {
+        ProgramState programState;
+        try {
+            programState = repository.getCurrentProgramState();
+        } catch (MyException e) {
+            return;
+        }
+
+        while (!programState.getStack().isEmpty()) {
             try {
                 oneStep(programState);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return;
             }
             //here you can display the programState state
-        }}
+        }
+    }
 }

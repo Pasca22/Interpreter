@@ -17,6 +17,11 @@ public class MyStack<T> implements MyIStack<T> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return stack.isEmpty();
+    }
+
+    @Override
+    public T peek() {
+        return stack.peek();
     }
 }

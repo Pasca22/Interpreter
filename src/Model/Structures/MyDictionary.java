@@ -11,16 +11,16 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
 
     @Override
     public boolean isDefined(K id) {
-        return false;
+        return dictionary.containsKey(id);
     }
 
     @Override
-    public IValue lookup(K id) {
-        return null;
+    public V lookup(K id) {
+        return dictionary.get(id);
     }
 
     @Override
     public void update(K id, V val) {
-
+        dictionary.put(id, val);
     }
 }
