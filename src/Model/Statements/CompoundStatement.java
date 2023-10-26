@@ -8,6 +8,11 @@ public class CompoundStatement implements IStatement {
     IStatement firstStatement;
     IStatement secondStatement;
 
+    public CompoundStatement(IStatement fs, IStatement ss) {
+        firstStatement = fs;
+        secondStatement = ss;
+    }
+
     public String toString() {
         return "(" + firstStatement.toString() + ";" + secondStatement.toString() + ")";
     }
