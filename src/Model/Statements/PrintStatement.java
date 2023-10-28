@@ -13,7 +13,9 @@ public class PrintStatement implements IStatement {
         expression = expr;
     }
 
-    public String toString() {return "print(" + expression.toString() + ")";};
+
+    @Override
+    public String toString() {return "print(" + expression.toString() + ");";};
 
     @Override
     public ProgramState execute(ProgramState state) throws Exception {

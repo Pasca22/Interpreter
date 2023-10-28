@@ -12,9 +12,9 @@ public class CompoundStatement implements IStatement {
         firstStatement = fs;
         secondStatement = ss;
     }
-
+    @Override
     public String toString() {
-        return "(" + firstStatement.toString() + ";" + secondStatement.toString() + ")";
+        return firstStatement.toString() + "\n" + secondStatement.toString();
     }
 
     @Override

@@ -16,4 +16,9 @@ public class MyList<T> implements MyIList<T> {
     public boolean isEmpty() {
         return list.isEmpty();
     }
+
+    @Override
+    public String toString() {
+        return list.toString();
+    }
 }

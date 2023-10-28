@@ -8,22 +8,24 @@ import Model.Structures.ProgramState;
 import Model.Types.BoolType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
-import Model.Values.IntValue;
+
 
 public class IfStatement implements IStatement {
     Expression expression;
     IStatement thenStatement;
     IStatement elseStatement;
 
-    IfStatement (Expression e, IStatement t, IStatement el) {
+    public IfStatement (Expression e, IStatement t, IStatement el) {
         expression = e;
         thenStatement = t;
         elseStatement = el;
     }
+
+    @Override
     public String toString(){ return "(IF("+ expression.toString()+") THEN(" + thenStatement.toString() +")ELSE("+ elseStatement.toString()+"))";}
 
     @Override
-    public ProgramState execute(ProgramState state) throws Exception{
+    public ProgramState execute(ProgramState state) throws Exception {
         MyIStack<IStatement> stack = state.getStack();
         MyIDictionary<String, IValue> systemTable = state.getDictionary();
         IValue condition = expression.evaluation(systemTable);
@@ -31,15 +33,10 @@ public class IfStatement implements IStatement {
         if (!condition.getType().equals(new BoolType())) {
             throw new MyException("Conditional expression not a boolean");
         } else if (((BoolValue) condition).getValue()) {
-            IStatement statement = stack.pop();
-            stack.pop();
-            stack.push(statement);
+            stack.push(thenStatement);
         } else {
-            stack.pop();
+            stack.push(elseStatement);
         }
-
-
-
         return state;
     }
 }

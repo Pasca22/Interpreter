@@ -7,4 +7,7 @@ public class NopStatement implements IStatement {
     public ProgramState execute(ProgramState state){
         return state;
     }
+
+    @Override
+    public String toString() { return ""; }
 }

@@ -17,12 +17,12 @@ public class AssignmentStatement implements IStatement {
         this.expression = expr;
     }
 
+    @Override
     public String toString() {
-        return id + "=" + expression.toString();
+        return id + "=" + expression.toString() + ";";
     }
 
     public ProgramState execute(ProgramState state) throws Exception {
-        MyIStack<IStatement> stack = state.getStack();
         MyIDictionary<String, IValue> systemTable = state.getDictionary();
 
         if (systemTable.isDefined(id)) {
@@ -31,9 +31,9 @@ public class AssignmentStatement implements IStatement {
             if (val.getType().equals(typeId)) {
                 systemTable.update(id, val);
             } else
-                throw new MyException("declared type of variable" + id + " and type of the assigned expression do not match");
+                throw new MyException("declared type of variable \"" + id + "\" and type of the assigned expression do not match");
         } else
-            throw new MyException("the used variable" + id + " was not declared before");
+            throw new MyException("the used variable " + id + " was not declared before");
         return state;
     }
 }

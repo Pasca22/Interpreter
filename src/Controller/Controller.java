@@ -9,9 +9,17 @@ import Repository.Repository;
 
 public class Controller {
 
-    IRepository repository = new Repository();
+    IRepository repository;
 
-    ProgramState oneStep(ProgramState state) throws Exception {
+    public Controller(IRepository repository) {
+        this.repository = repository;
+    }
+
+    public void addProgramState(ProgramState state) {
+        this.repository.addProgramState(state);
+    }
+
+    public ProgramState oneStep(ProgramState state) throws Exception {
         MyIStack<IStatement> stack = state.getStack();
         if(stack.isEmpty()) {
             throw new MyException("Program state stack is empty");
@@ -20,7 +28,7 @@ public class Controller {
         return createdStatement.execute(state);
     }
 
-    void allSteps() {
+    public void allSteps() {
         ProgramState programState;
         try {
             programState = repository.getCurrentProgramState();
@@ -34,7 +42,6 @@ public class Controller {
             } catch (Exception e) {
                 return;
             }
-            //here you can display the programState state
         }
     }
 }

@@ -5,8 +5,10 @@ import Model.Values.IValue;
 
 public class BoolType implements IType{
     public boolean equals(Object newObject){
-        return newObject instanceof IntType;
+        return newObject instanceof BoolType;
     }
+
+    @Override
     public String toString() { return "bool";}
 
     @Override

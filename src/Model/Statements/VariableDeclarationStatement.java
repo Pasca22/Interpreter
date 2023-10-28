@@ -18,6 +18,11 @@ public class VariableDeclarationStatement implements IStatement {
     }
 
     @Override
+    public String toString() {
+        return type + " " + name + ";";
+    }
+
+    @Override
     public ProgramState execute(ProgramState state) throws Exception {
 
         MyIDictionary<String, IValue> systemTable = state.getDictionary();

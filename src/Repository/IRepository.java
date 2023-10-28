@@ -5,4 +5,5 @@ import Model.Structures.ProgramState;
 
 public interface IRepository {
     ProgramState getCurrentProgramState() throws MyException;
+    public void addProgramState(ProgramState ps);
 }

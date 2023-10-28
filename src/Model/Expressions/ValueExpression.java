@@ -13,11 +13,17 @@ public class ValueExpression implements Expression {
     public  ValueExpression(IValue v) {
         value = v;
     }
+
+    @Override
+    public String toString() {
+        return "" + value;
+    }
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
-        if (value.getType().equals(new IntType())) {
+       /* if (value.getType().equals(new IntType())) {
             return new IntValue(((IntValue) value).getValue());
         }
-        return new BoolValue(((BoolValue) value).getValue());
+        return new BoolValue(((BoolValue) value).getValue());*/
+        return value;
     }
 }

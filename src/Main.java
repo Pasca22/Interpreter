@@ -1,7 +1,18 @@
+import Controller.Controller;
+import Repository.Repository;
+import View.View;
+
+import java.util.Scanner;
+
 
 public class Main {
     public static void main(String[] args) {
 
-        System.out.print("Hello and welcome!");
+        Repository repository = new Repository();
+        Controller controller = new Controller(repository);
+        View view = new View(controller);
+
+        view.run();
+
         }
     }

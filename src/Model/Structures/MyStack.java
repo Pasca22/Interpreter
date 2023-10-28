@@ -24,4 +24,9 @@ public class MyStack<T> implements MyIStack<T> {
     public T peek() {
         return stack.peek();
     }
+
+    @Override
+    public String toString() {
+        return stack.toString();
+    }
 }

@@ -23,4 +23,9 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     public void update(K id, V val) {
         dictionary.put(id, val);
     }
+
+    @Override
+    public String toString() {
+        return dictionary.toString();
+    }
 }

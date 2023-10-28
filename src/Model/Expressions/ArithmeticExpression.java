@@ -20,6 +20,11 @@ public class ArithmeticExpression implements Expression {
     }
 
     @Override
+    public String toString() {
+        return e1 + operand + e2;
+    }
+
+    @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
         IValue v1, v2;
         v1 = e1.evaluation(table);
