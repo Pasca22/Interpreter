@@ -5,7 +5,6 @@ import Model.Statements.IStatement;
 import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
 import Repository.IRepository;
-import Repository.Repository;
 
 public class Controller {
 
@@ -19,13 +18,14 @@ public class Controller {
         this.repository.addProgramState(state);
     }
 
-    public ProgramState oneStep(ProgramState state) throws Exception {
-        MyIStack<IStatement> stack = state.getStack();
+    public void oneStep(ProgramState state) throws Exception {
+        MyIStack<IStatement> stack = state.getExeStack();
+
         if(stack.isEmpty()) {
             throw new MyException("Program state stack is empty");
         }
         IStatement createdStatement = stack.pop();
-        return createdStatement.execute(state);
+        createdStatement.execute(state);
     }
 
     public void allSteps() {
@@ -36,7 +36,7 @@ public class Controller {
             return;
         }
 
-        while (!programState.getStack().isEmpty()) {
+        while (!programState.getExeStack().isEmpty()) {
             try {
                 oneStep(programState);
             } catch (Exception e) {

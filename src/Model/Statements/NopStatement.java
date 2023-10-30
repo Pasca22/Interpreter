@@ -9,5 +9,5 @@ public class NopStatement implements IStatement {
     }
 
     @Override
-    public String toString() { return ""; }
+    public String toString() { return "NOP"; }
 }

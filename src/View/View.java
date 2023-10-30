@@ -85,11 +85,11 @@ public class View {
                     break;
 
                 case "2":
-                    System.out.println(programState.getStack());
+                    System.out.println(programState.getExeStack());
                     break;
 
                 case "3":
-                    System.out.println(programState.getDictionary());
+                    System.out.println(programState.getSystemTable());
                     break;
 
                 case "4":
@@ -99,6 +99,7 @@ public class View {
                 case "5":
                     try {
                         this.controller.oneStep(programState);
+                        break;
                     } catch (Exception e) {
                         System.out.println(e.toString());
                     }

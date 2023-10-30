@@ -26,8 +26,8 @@ public class IfStatement implements IStatement {
 
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
-        MyIStack<IStatement> stack = state.getStack();
-        MyIDictionary<String, IValue> systemTable = state.getDictionary();
+        MyIStack<IStatement> stack = state.getExeStack();
+        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
         IValue condition = expression.evaluation(systemTable);
 
         if (!condition.getType().equals(new BoolType())) {

@@ -21,7 +21,7 @@ public class PrintStatement implements IStatement {
     public ProgramState execute(ProgramState state) throws Exception {
 
         MyIList<IValue> outputList = state.getOutputList();
-        MyIDictionary<String, IValue> systemTable = state.getDictionary();
+        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
         outputList.add(expression.evaluation(systemTable));
 
         return state;

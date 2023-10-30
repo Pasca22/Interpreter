@@ -15,11 +15,11 @@ public class ProgramState {
         exeStack.push(originalProgram);
     }
 
-    public MyIStack<IStatement> getStack() {
+    public MyIStack<IStatement> getExeStack() {
         return exeStack;
     }
 
-    public MyIDictionary<String, IValue> getDictionary() { return systemTable; }
+    public MyIDictionary<String, IValue> getSystemTable() { return systemTable; }
 
     public MyIList<IValue> getOutputList() { return outputList; }
 

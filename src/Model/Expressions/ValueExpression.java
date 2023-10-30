@@ -20,10 +20,7 @@ public class ValueExpression implements Expression {
     }
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
-       /* if (value.getType().equals(new IntType())) {
-            return new IntValue(((IntValue) value).getValue());
-        }
-        return new BoolValue(((BoolValue) value).getValue());*/
+
         return value;
     }
 }

@@ -2,7 +2,6 @@ package Model.Statements;
 
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
-import Model.Structures.MyIStack;
 import Model.Structures.MyIDictionary;
 import Model.Structures.ProgramState;
 import Model.Types.IType;
@@ -23,7 +22,7 @@ public class AssignmentStatement implements IStatement {
     }
 
     public ProgramState execute(ProgramState state) throws Exception {
-        MyIDictionary<String, IValue> systemTable = state.getDictionary();
+        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
 
         if (systemTable.isDefined(id)) {
             IValue val = expression.evaluation(systemTable);
