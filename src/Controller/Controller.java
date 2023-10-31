@@ -39,6 +39,7 @@ public class Controller {
         while (!programState.getExeStack().isEmpty()) {
             try {
                 oneStep(programState);
+
             } catch (Exception e) {
                 return;
             }

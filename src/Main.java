@@ -3,10 +3,11 @@ import Model.Expressions.ArithmeticExpression;
 import Model.Expressions.ValueExpression;
 import Model.Expressions.VariableExpression;
 import Model.Statements.*;
-import Model.Structures.ProgramState;
+import Model.Structures.*;
 import Model.Types.BoolType;
 import Model.Types.IntType;
 import Model.Values.BoolValue;
+import Model.Values.IValue;
 import Model.Values.IntValue;
 import Repository.Repository;
 import View.ExitCommand;
@@ -37,9 +38,21 @@ public class Main {
                                         IntValue(2))), new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new
                                         VariableExpression("v"))))));
 
-        ProgramState p1 = new ProgramState(s1);
-        ProgramState p2 = new ProgramState(s2);
-        ProgramState p3 = new ProgramState(s3);
+        MyIStack<IStatement> exeStack1 = new MyStack<>();
+        MyIDictionary<String, IValue> systemTable1 = new MyDictionary<>();
+        MyIList<IValue> outputList1 = new MyList<>();
+
+        MyIStack<IStatement> exeStack2 = new MyStack<>();
+        MyIDictionary<String, IValue> systemTable2 = new MyDictionary<>();
+        MyIList<IValue> outputList2 = new MyList<>();
+
+        MyIStack<IStatement> exeStack3 = new MyStack<>();
+        MyIDictionary<String, IValue> systemTable3 = new MyDictionary<>();
+        MyIList<IValue> outputList3 = new MyList<>();
+
+        ProgramState p1 = new ProgramState(exeStack1, systemTable1, outputList1, s1);
+        ProgramState p2 = new ProgramState(exeStack2, systemTable2, outputList2, s2);
+        ProgramState p3 = new ProgramState(exeStack3, systemTable3, outputList3, s3);
 
         Repository repository1 = new Repository();
         repository1.addProgramState(p1);

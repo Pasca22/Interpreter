@@ -25,4 +25,9 @@ public class VariableExpression implements Expression {
         throw new MyException("Variable " + id + " is not defined");
 
     }
+
+    @Override
+    public Expression deepCopy() {
+        return new VariableExpression(id);
+    }
 }

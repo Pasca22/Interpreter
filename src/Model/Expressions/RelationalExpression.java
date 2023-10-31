@@ -13,6 +13,13 @@ public class RelationalExpression implements Expression {
 
     Expression e1, e2;
     String relationalOperation;
+
+    public RelationalExpression(Expression e1, Expression e2, String relation) {
+        this.e1 = e1;
+        this.e2 = e2;
+        relationalOperation = relation;
+    }
+
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
 
@@ -36,5 +43,10 @@ public class RelationalExpression implements Expression {
         } else
             throw new MyException("first operand is not an integer");
         return null;
+    }
+
+    @Override
+    public Expression deepCopy() {
+        return new RelationalExpression(e1.deepCopy(), e2.deepCopy(), relationalOperation);
     }
 }

@@ -39,4 +39,9 @@ public class IfStatement implements IStatement {
         }
         return state;
     }
+
+    @Override
+    public IStatement deepCopy() {
+        return new IfStatement(expression.deepCopy(), thenStatement.deepCopy(), elseStatement.deepCopy());
+    }
 }

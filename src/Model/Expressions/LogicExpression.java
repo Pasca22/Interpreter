@@ -54,4 +54,9 @@ public class LogicExpression implements Expression {
 
 
     }
+
+    @Override
+    public Expression deepCopy() {
+        return new LogicExpression(e1.deepCopy(), e2.deepCopy(), logicOperation);
+    }
 }

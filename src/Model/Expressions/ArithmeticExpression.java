@@ -48,5 +48,10 @@ public class ArithmeticExpression implements Expression {
             throw new MyException("first operand is not an integer");
         return null;
     }
+
+    @Override
+    public Expression deepCopy() {
+        return new ArithmeticExpression(operand, e1.deepCopy(), e2.deepCopy());
+    }
 }
 

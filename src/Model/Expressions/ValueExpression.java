@@ -20,7 +20,11 @@ public class ValueExpression implements Expression {
     }
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
-
         return value;
+    }
+
+    @Override
+    public Expression deepCopy() {
+        return new ValueExpression(value.deepCopy());
     }
 }

@@ -4,15 +4,18 @@ import Model.Statements.IStatement;
 import Model.Values.IValue;
 
 public class ProgramState {
-    MyIStack<IStatement> exeStack = new MyStack<>();
-    MyIDictionary<String, IValue> systemTable = new MyDictionary<>();
-    MyIList<IValue> outputList = new MyList<>();
+    MyIStack<IStatement> exeStack;
+    MyIDictionary<String, IValue> systemTable;
+    MyIList<IValue> outputList;
 
     IStatement originalProgram;
 
-    public ProgramState(IStatement originalProgram) {
-        this.originalProgram = originalProgram;
-        exeStack.push(originalProgram);
+    public ProgramState(MyIStack<IStatement> stack, MyIDictionary<String, IValue> dictionary, MyIList<IValue> list, IStatement program) {
+        exeStack = stack;
+        systemTable = dictionary;
+        outputList = list;
+        originalProgram = program.deepCopy();
+        exeStack.push(program);
     }
 
     public MyIStack<IStatement> getExeStack() {

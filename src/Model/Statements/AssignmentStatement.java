@@ -35,4 +35,9 @@ public class AssignmentStatement implements IStatement {
             throw new MyException("the used variable " + id + " was not declared before");
         return state;
     }
+
+    @Override
+    public IStatement deepCopy() {
+        return new AssignmentStatement(id, expression.deepCopy());
+    }
 }

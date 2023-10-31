@@ -3,7 +3,7 @@ package Model.Types;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
 
-public class BoolType implements IType{
+public class BoolType implements IType {
     public boolean equals(Object newObject){
         return newObject instanceof BoolType;
     }
@@ -14,5 +14,10 @@ public class BoolType implements IType{
     @Override
     public IValue defaultValue() {
         return new BoolValue(false);
+    }
+
+    @Override
+    public IType deepCopy() {
+        return new BoolType();
     }
 }
