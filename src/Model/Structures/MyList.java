@@ -18,6 +18,16 @@ public class MyList<T> implements MyIList<T> {
     }
 
     @Override
+    public T get(int i) {
+        return list.get(i);
+    }
+
+    @Override
+    public int getSize() {
+        return list.size();
+    }
+
+    @Override
     public String toString() {
         return list.toString();
     }

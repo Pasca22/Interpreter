@@ -13,7 +13,7 @@ public class CompoundStatement implements IStatement {
     }
     @Override
     public String toString() {
-        return firstStatement.toString() + "\n" + secondStatement.toString();
+        return firstStatement.toString() + " " + secondStatement.toString();
     }
 
     @Override

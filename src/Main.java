@@ -54,16 +54,13 @@ public class Main {
         ProgramState p2 = new ProgramState(exeStack2, systemTable2, outputList2, s2);
         ProgramState p3 = new ProgramState(exeStack3, systemTable3, outputList3, s3);
 
-        Repository repository1 = new Repository();
-        repository1.addProgramState(p1);
+        Repository repository1 = new Repository(p1, "testFile.txt");
         Controller controller1 = new Controller(repository1);
 
-        Repository repository2 = new Repository();
-        repository2.addProgramState(p2);
+        Repository repository2 = new Repository(p2, "testFile.txt");
         Controller controller2 = new Controller(repository2);
 
-        Repository repository3 = new Repository();
-        repository3.addProgramState(p3);
+        Repository repository3 = new Repository(p3, "testFile.txt");
         Controller controller3 = new Controller(repository3);
 
         TextMenu menu = new TextMenu();

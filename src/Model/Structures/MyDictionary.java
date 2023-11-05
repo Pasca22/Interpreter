@@ -1,7 +1,5 @@
 package Model.Structures;
 
-import Model.Values.IValue;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,13 +13,16 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     }
 
     @Override
-    public V lookup(K id) {
-        return dictionary.get(id);
-    }
+    public V lookup(K id) { return dictionary.get(id); }
 
     @Override
     public void update(K id, V val) {
         dictionary.put(id, val);
+    }
+
+    @Override
+    public Iterable<Map.Entry<K, V>> getIterableSet() {
+        return dictionary.entrySet();
     }
 
     @Override

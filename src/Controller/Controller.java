@@ -32,14 +32,15 @@ public class Controller {
         ProgramState programState;
         try {
             programState = repository.getCurrentProgramState();
-        } catch (MyException e) {
+            repository.logProgramStateExec();
+        } catch (Exception e) {
             return;
         }
 
         while (!programState.getExeStack().isEmpty()) {
             try {
                 oneStep(programState);
-
+                repository.logProgramStateExec();
             } catch (Exception e) {
                 return;
             }

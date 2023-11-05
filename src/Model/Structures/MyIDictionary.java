@@ -1,6 +1,6 @@
 package Model.Structures;
 
-import Model.Values.IValue;
+import java.util.Map;
 
 public interface MyIDictionary<K, V> {
 
@@ -10,5 +10,7 @@ public interface MyIDictionary<K, V> {
     V lookup(K id);
 
     void update(K id, V val);
+
+    Iterable<Map.Entry<K,V>> getIterableSet();
 
 }
