@@ -10,11 +10,11 @@ import Model.Values.StringValue;
 
 import java.io.BufferedReader;
 
-public class CloseReadFile implements IStatement {
+public class CloseReadFileStatement implements IStatement {
 
     Expression expression;
 
-    public CloseReadFile(Expression e) {
+    public CloseReadFileStatement(Expression e) {
         expression = e;
     }
 
@@ -57,6 +57,6 @@ public class CloseReadFile implements IStatement {
 
     @Override
     public IStatement deepCopy() {
-        return new CloseReadFile(expression.deepCopy());
+        return new CloseReadFileStatement(expression.deepCopy());
     }
 }

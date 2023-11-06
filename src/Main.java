@@ -6,14 +6,16 @@ import Model.Statements.*;
 import Model.Structures.*;
 import Model.Types.BoolType;
 import Model.Types.IntType;
+import Model.Types.StringType;
 import Model.Values.BoolValue;
-import Model.Values.IValue;
 import Model.Values.IntValue;
 import Model.Values.StringValue;
 import Repository.Repository;
 import View.ExitCommand;
 import View.RunExample;
 import View.TextMenu;
+
+import java.util.Scanner;
 
 
 public class Main {
@@ -37,26 +39,44 @@ public class Main {
                                         IntValue(2))), new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new
                                         VariableExpression("v"))))));
 
+        IStatement s4 = new CompoundStatement(new VariableDeclarationStatement("varf", new StringType()),
+                new CompoundStatement(new AssignmentStatement("varf", new ValueExpression(new StringValue("test.in"))),
+                        new CompoundStatement(new OpenReadFileStatement(new VariableExpression("varf")),
+                                new CompoundStatement(new VariableDeclarationStatement("varc", new IntType()),
+                                        new CompoundStatement(new ReadFileStatement(new VariableExpression("varf"), "varc"),
+                                                new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
+                                                        new CompoundStatement(new ReadFileStatement(new VariableExpression("varf"), "varc"),
+                                                                new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
+                                                                        new CloseReadFileStatement(new VariableExpression("varf"))))))))));
 
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter output file name: ");
+        String fileName = input.next();
+        System.out.println();
 
         ProgramState p1 = new ProgramState(s1);
         ProgramState p2 = new ProgramState(s2);
         ProgramState p3 = new ProgramState(s3);
+        ProgramState p4 = new ProgramState(s4);
 
-        Repository repository1 = new Repository(p1, "testFile.txt");
+        Repository repository1 = new Repository(p1, fileName);
         Controller controller1 = new Controller(repository1);
 
-        Repository repository2 = new Repository(p2, "testFile.txt");
+        Repository repository2 = new Repository(p2, fileName);
         Controller controller2 = new Controller(repository2);
 
-        Repository repository3 = new Repository(p3, "testFile.txt");
+        Repository repository3 = new Repository(p3, fileName);
         Controller controller3 = new Controller(repository3);
+
+        Repository repository4 = new Repository(p4, fileName);
+        Controller controller4 = new Controller(repository4);
 
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", s1.toString(), controller1));
         menu.addCommand(new RunExample("2", s2.toString(), controller2));
         menu.addCommand(new RunExample("3", s3.toString(), controller3));
+        menu.addCommand(new RunExample("4", s4.toString(), controller4));
 
         menu.show();
 

@@ -12,12 +12,12 @@ import Model.Values.StringValue;
 
 import java.io.BufferedReader;
 
-public class ReadFile implements IStatement {
+public class ReadFileStatement implements IStatement {
 
     Expression expression;
     String variableName;
 
-    public ReadFile(Expression e, String name) {
+    public ReadFileStatement(Expression e, String name) {
         expression = e;
         variableName = name;
     }
@@ -80,6 +80,6 @@ public class ReadFile implements IStatement {
 
     @Override
     public IStatement deepCopy() {
-        return new ReadFile(expression.deepCopy(), variableName);
+        return new ReadFileStatement(expression.deepCopy(), variableName);
     }
 }
