@@ -13,4 +13,6 @@ public interface MyIDictionary<K, V> {
 
     Iterable<Map.Entry<K,V>> getIterableSet();
 
+    void remove(K id);
+
 }

@@ -4,7 +4,9 @@ import Model.Exceptions.MyException;
 import Model.Statements.IStatement;
 import Model.Structures.*;
 import Model.Values.IValue;
+import Model.Values.StringValue;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -39,6 +41,7 @@ public class Repository implements IRepository {
         MyIStack<IStatement> exeStack = getCurrentProgramState().getExeStack();
         MyIDictionary<String, IValue> systemTable = getCurrentProgramState().getSystemTable();
         MyIList<IValue> outputList = getCurrentProgramState().getOutputList();
+        MyIDictionary<StringValue, BufferedReader> fileTable = getCurrentProgramState().getFileTable();
 
         MyIStack<IStatement> auxiliaryStack = new MyStack<>();
 
@@ -56,7 +59,7 @@ public class Repository implements IRepository {
         logFile.println();
 
         logFile.println("SymTable:");
-        for (Map.Entry<String,IValue> s : systemTable.getIterableSet()) {
+        for (Map.Entry<String, IValue> s : systemTable.getIterableSet()) {
             logFile.println(s.getKey() + " --> " + s.getValue());
         }
         logFile.println();
@@ -68,11 +71,14 @@ public class Repository implements IRepository {
         logFile.println();
 
         logFile.println("FileTable:");
+        for (Map.Entry<StringValue, BufferedReader> s : fileTable.getIterableSet()) {
+            logFile.println(s.getKey());
+        }
         logFile.println();
+        logFile.println("-----------------------------------");
         logFile.println();
 
-        logFile.close();
-
+        logFile.flush();
     }
 
     @Override

@@ -26,6 +26,11 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     }
 
     @Override
+    public void remove(K id) {
+        dictionary.remove(id);
+    }
+
+    @Override
     public String toString() {
         return dictionary.toString();
     }

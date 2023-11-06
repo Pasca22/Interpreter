@@ -2,18 +2,22 @@ package Model.Structures;
 
 import Model.Statements.IStatement;
 import Model.Values.IValue;
+import Model.Values.StringValue;
+
+import java.io.BufferedReader;
 
 public class ProgramState {
     MyIStack<IStatement> exeStack;
     MyIDictionary<String, IValue> systemTable;
     MyIList<IValue> outputList;
-
     IStatement originalProgram;
+    MyIDictionary<StringValue, BufferedReader> fileTable;
 
-    public ProgramState(MyIStack<IStatement> stack, MyIDictionary<String, IValue> dictionary, MyIList<IValue> list, IStatement program) {
-        exeStack = stack;
-        systemTable = dictionary;
-        outputList = list;
+    public ProgramState(IStatement program) {
+        exeStack = new MyStack<>();
+        systemTable = new MyDictionary<>();
+        outputList = new MyList<>();
+        fileTable = new MyDictionary<>();
         originalProgram = program.deepCopy();
         exeStack.push(program);
     }
@@ -26,5 +30,6 @@ public class ProgramState {
 
     public MyIList<IValue> getOutputList() { return outputList; }
 
+    public MyIDictionary<StringValue, BufferedReader> getFileTable() { return fileTable; }
 
 }
