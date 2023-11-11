@@ -28,22 +28,15 @@ public class Controller {
         createdStatement.execute(state);
     }
 
-    public void allSteps() {
+    public void allSteps() throws Exception {
         ProgramState programState;
-        try {
             programState = repository.getCurrentProgramState();
             repository.logProgramStateExec();
-        } catch (Exception e) {
-            return;
-        }
 
         while (!programState.getExeStack().isEmpty()) {
-            try {
-                oneStep(programState);
-                repository.logProgramStateExec();
-            } catch (Exception e) {
-                return;
-            }
+            oneStep(programState);
+            repository.logProgramStateExec();
+
         }
     }
 }
