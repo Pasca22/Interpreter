@@ -39,9 +39,10 @@ public class Repository implements IRepository {
         }
 
         MyIStack<IStatement> exeStack = getCurrentProgramState().getExeStack();
-        MyIDictionary<String, IValue> systemTable = getCurrentProgramState().getSystemTable();
+        MyIDictionary<String, IValue> symbolTable = getCurrentProgramState().getSymbolTable();
         MyIList<IValue> outputList = getCurrentProgramState().getOutputList();
         MyIDictionary<StringValue, BufferedReader> fileTable = getCurrentProgramState().getFileTable();
+        MyIHeap<Integer, IValue> heap = getCurrentProgramState().getHeap();
 
         MyIStack<IStatement> auxiliaryStack = new MyStack<>();
 
@@ -58,9 +59,15 @@ public class Repository implements IRepository {
         }
         logFile.println();
 
-        logFile.println("SymTable:");
-        for (Map.Entry<String, IValue> s : systemTable.getIterableSet()) {
+        logFile.println("SymbolTable:");
+        for (Map.Entry<String, IValue> s : symbolTable.getIterableSet()) {
             logFile.println(s.getKey() + " --> " + s.getValue());
+        }
+        logFile.println();
+
+        logFile.println("Heap:");
+        for (Map.Entry<Integer, IValue> h : heap.getIterableSet()) {
+            logFile.println(h.getKey() + " --> " + h.getValue());
         }
         logFile.println();
 

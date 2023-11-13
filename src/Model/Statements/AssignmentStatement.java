@@ -22,13 +22,13 @@ public class AssignmentStatement implements IStatement {
     }
 
     public ProgramState execute(ProgramState state) throws Exception {
-        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
+        MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
 
-        if (systemTable.isDefined(id)) {
-            IValue val = expression.evaluation(systemTable);
-            IType typeId = systemTable.lookup(id).getType();
+        if (symbolTable.isDefined(id)) {
+            IValue val = expression.evaluation(symbolTable);
+            IType typeId = symbolTable.lookup(id).getType();
             if (val.getType().equals(typeId)) {
-                systemTable.update(id, val);
+                symbolTable.update(id, val);
             } else
                 throw new MyException("declared type of variable \"" + id + "\" and type of the assigned expression do not match");
         } else

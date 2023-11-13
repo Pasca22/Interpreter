@@ -23,11 +23,11 @@ public class VariableDeclarationStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
 
-        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
-        if (systemTable.isDefined(name)) {
+        MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
+        if (symbolTable.isDefined(name)) {
             throw new MyException("Variable already declared");
         } else {
-            systemTable.update(name, type.defaultValue());
+            symbolTable.update(name, type.defaultValue());
         }
         return state;
     }

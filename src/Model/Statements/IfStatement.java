@@ -27,8 +27,8 @@ public class IfStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
         MyIStack<IStatement> stack = state.getExeStack();
-        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
-        IValue condition = expression.evaluation(systemTable);
+        MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
+        IValue condition = expression.evaluation(symbolTable);
 
         if (!condition.getType().equals(new BoolType())) {
             throw new MyException("Conditional expression not a boolean");

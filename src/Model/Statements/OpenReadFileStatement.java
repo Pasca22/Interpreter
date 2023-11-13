@@ -27,9 +27,9 @@ public class OpenReadFileStatement implements IStatement  {
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
 
-        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
+        MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
-        IValue expressionValue = expression.evaluation(systemTable);
+        IValue expressionValue = expression.evaluation(symbolTable);
 
         if (!expressionValue.getType().equals(new StringType())) {
             throw new MyException("The expression is not of StringType");

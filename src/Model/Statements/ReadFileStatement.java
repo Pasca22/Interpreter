@@ -30,20 +30,20 @@ public class ReadFileStatement implements IStatement {
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
 
-        MyIDictionary<String, IValue> systemTable = state.getSystemTable();
+        MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
 
-        if (!systemTable.isDefined(variableName)) {
+        if (!symbolTable.isDefined(variableName)) {
             throw new MyException("Variable " + variableName + " is not defined");
         }
 
-        IValue value = systemTable.lookup(variableName);
+        IValue value = symbolTable.lookup(variableName);
 
         if (!value.getType().equals(new IntType())) {
             throw new MyException("Variable type is not int");
         }
 
         IntValue intValue;
-        IValue expressionValue = expression.evaluation(systemTable);
+        IValue expressionValue = expression.evaluation(symbolTable);
 
         if (!expressionValue.getType().equals(new StringType())) {
             throw new MyException("The expression is not of StringType");
@@ -73,7 +73,7 @@ public class ReadFileStatement implements IStatement {
         else
             intValue = new IntValue(Integer.parseInt(readValue));
 
-        systemTable.update(this.variableName, intValue);
+        symbolTable.update(this.variableName, intValue);
 
         return state;
     }
