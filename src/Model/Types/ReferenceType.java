@@ -10,7 +10,6 @@ public class ReferenceType implements IType {
     public ReferenceType(IType inner) {
         this.inner = inner;
     }
-    public ReferenceType() {};
 
     public boolean equals(Object another){
         if (another instanceof ReferenceType)
@@ -24,7 +23,7 @@ public class ReferenceType implements IType {
         return "Ref(" + inner.toString()+ ")";
     }
 
-    IType getInner() {
+    public IType getInner() {
         return inner;
     }
 

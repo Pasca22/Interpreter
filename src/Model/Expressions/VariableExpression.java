@@ -2,6 +2,7 @@ package Model.Expressions;
 
 import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Values.IValue;
 
 public class VariableExpression implements Expression {
@@ -17,7 +18,7 @@ public class VariableExpression implements Expression {
         return id;
     }
     @Override
-    public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
+    public IValue evaluation(MyIDictionary<String, IValue> table,  MyIHeap heap) throws Exception {
 
         if (table.isDefined(id)) {
             return table.lookup(id);

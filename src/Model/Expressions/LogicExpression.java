@@ -2,6 +2,7 @@ package Model.Expressions;
 
 import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Types.BoolType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
@@ -24,12 +25,12 @@ public class LogicExpression implements Expression {
     }
 
     @Override
-    public IValue evaluation(MyIDictionary<String, IValue> table) throws Exception {
+    public IValue evaluation(MyIDictionary<String, IValue> table,  MyIHeap heap) throws Exception {
 
-        IValue firstEvaluation = e1.evaluation(table);
+        IValue firstEvaluation = e1.evaluation(table, heap);
 
         if (firstEvaluation.getType().equals(new BoolType())) {
-            IValue secondEvaluation = e2.evaluation(table);
+            IValue secondEvaluation = e2.evaluation(table, heap);
 
             if (secondEvaluation.getType().equals(new BoolType())) {
 

@@ -1,16 +1,22 @@
 package Model.Structures;
 
+import Model.Values.IValue;
+
 import java.util.Map;
 
-public interface MyIHeap<K, V> {
+public interface MyIHeap {
 
-    boolean isDefined(K id);
+    int getFreeAddress();
 
-    V lookup(K id);
+    boolean isDefined(Integer id);
 
-    void update(K id, V val);
+    IValue lookup(Integer id);
 
-    Iterable<Map.Entry<K,V>> getIterableSet();
+    void allocate(IValue val);
 
-    void remove(K id);
+    void update(Integer id, IValue val);
+
+    Iterable<Map.Entry<Integer,IValue>> getIterableSet();
+
+    void remove(Integer id);
 }

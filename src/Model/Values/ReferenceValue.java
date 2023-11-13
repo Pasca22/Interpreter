@@ -21,6 +21,10 @@ public class ReferenceValue implements IValue {
     public IType getType() {
         return new ReferenceType(locationType);
     }
+    @Override
+    public String toString() {
+        return address + ", " + locationType;
+    }
 
     @Override
     public IValue deepCopy() {

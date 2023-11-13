@@ -9,20 +9,19 @@ import Model.Types.ReferenceType;
 import Model.Values.IValue;
 import Model.Values.ReferenceValue;
 
-public class HeapAllocationStatement implements IStatement {
+public class HeapWritingStatement implements IStatement {
 
     String variableName;
     Expression expression;
 
-    public HeapAllocationStatement(String var, Expression e) {
+    public HeapWritingStatement(String var, Expression e) {
         variableName = var;
         expression = e;
     }
 
     @Override
-    public String toString()
-    {
-        return "new(" + variableName + ", " + expression + ")";
+    public String toString() {
+        return "";
     }
 
     @Override
@@ -31,7 +30,7 @@ public class HeapAllocationStatement implements IStatement {
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
         MyIHeap heap = state.getHeap();
 
-        if(!symbolTable.isDefined(variableName)) {
+        if(! symbolTable.isDefined(variableName)) {
             throw new MyException("Variable is not defined");
         }
 
@@ -41,22 +40,25 @@ public class HeapAllocationStatement implements IStatement {
             throw new MyException("Variable is not of type Reference");
         }
 
-        ReferenceValue referenceValue = (ReferenceValue) variableValue;
-        IValue expressionValue = expression.evaluation(symbolTable, heap);
+        ReferenceValue referenceValue = (ReferenceValue)variableValue;
 
-        if (!referenceValue.getType().equals(expressionValue.getType())) {
-            throw new MyException("Both types should be Reference Type");
+        if (!heap.isDefined(referenceValue.getAddress())) {
+            throw new MyException("Address not in heap");
         }
 
-        int address = heap.getFreeAddress();
-        heap.allocate(expressionValue);
-        symbolTable.update(variableName, new ReferenceValue(address, expressionValue.getType()));
+        IValue expressionValue = expression.evaluation(symbolTable, heap);
+        ReferenceType referenceType = (ReferenceType) referenceValue.getType();
 
+        if (!expressionValue.getType().equals(referenceType.getInner())) {
+            throw new MyException("Variable and reference do not have the same type");
+        }
+
+        heap.update(referenceValue.getAddress(), expressionValue);
         return state;
     }
 
     @Override
     public IStatement deepCopy() {
-        return new HeapAllocationStatement(variableName, expression.deepCopy());
+        return new HeapWritingStatement(variableName, expression.deepCopy());
     }
 }

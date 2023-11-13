@@ -12,14 +12,14 @@ public class ProgramState {
     MyIList<IValue> outputList;
     IStatement originalProgram;
     MyIDictionary<StringValue, BufferedReader> fileTable;
-    MyIHeap<Integer, IValue> heap;
+    MyIHeap heap;
 
     public ProgramState(IStatement program) {
         exeStack = new MyStack<>();
         symbolTable = new MyDictionary<>();
         outputList = new MyList<>();
         fileTable = new MyDictionary<>();
-        heap = new MyHeap<>();
+        heap = new MyHeap();
         originalProgram = program.deepCopy();
         exeStack.push(program);
     }
@@ -34,6 +34,6 @@ public class ProgramState {
 
     public MyIDictionary<StringValue, BufferedReader> getFileTable() { return fileTable; }
 
-    public MyIHeap<Integer, IValue> getHeap() {return heap;}
+    public MyIHeap getHeap() {return heap;}
 
 }

@@ -1,32 +1,44 @@
 package Model.Structures;
 
+import Model.Values.IValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyHeap<K, V> implements MyIHeap<K, V> {
-    Map<K, V> heap = new HashMap<>();
-    int newAddress;
+public class MyHeap implements MyIHeap {
+    Map<Integer, IValue> heap = new HashMap<>();
+    int freeAddress = 1;
+
+    public int getFreeAddress() {
+        return freeAddress;
+    }
 
     @Override
-    public boolean isDefined(K id) {
+    public boolean isDefined(Integer id) {
         return heap.containsKey(id);
     }
 
     @Override
-    public V lookup(K id) { return heap.get(id); }
+    public IValue lookup(Integer id) { return heap.get(id); }
 
     @Override
-    public void update(K id, V val) {
+    public void allocate(IValue val) {
+        heap.put(freeAddress, val);
+        freeAddress++;
+    }
+
+    @Override
+    public void update(Integer id, IValue val) {
         heap.put(id, val);
     }
 
     @Override
-    public Iterable<Map.Entry<K, V>> getIterableSet() {
+    public Iterable<Map.Entry<Integer, IValue>> getIterableSet() {
         return heap.entrySet();
     }
 
     @Override
-    public void remove(K id) {
+    public void remove(Integer id) {
         heap.remove(id);
     }
 
