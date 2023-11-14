@@ -3,6 +3,7 @@ package Model.Statements;
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
 import Model.Types.StringType;
 import Model.Values.IValue;
@@ -29,7 +30,9 @@ public class OpenReadFileStatement implements IStatement  {
 
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
         MyIDictionary<StringValue, BufferedReader> fileTable = state.getFileTable();
-        IValue expressionValue = expression.evaluation(symbolTable);
+        MyIHeap heap = state.getHeap();
+
+        IValue expressionValue = expression.evaluation(symbolTable, heap);
 
         if (!expressionValue.getType().equals(new StringType())) {
             throw new MyException("The expression is not of StringType");

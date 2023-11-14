@@ -21,7 +21,7 @@ public class HeapWritingStatement implements IStatement {
 
     @Override
     public String toString() {
-        return "";
+        return "wH(" + variableName + ", " + expression + ");";
     }
 
     @Override

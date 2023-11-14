@@ -7,6 +7,8 @@ public interface MyIDictionary<K, V> {
 
     boolean isDefined(K id);
 
+    Map<K, V> getContent();
+
     V lookup(K id);
 
     void update(K id, V val);

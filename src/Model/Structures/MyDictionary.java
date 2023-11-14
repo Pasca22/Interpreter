@@ -13,6 +13,11 @@ public class MyDictionary<K, V> implements MyIDictionary<K, V> {
     }
 
     @Override
+    public Map<K, V> getContent() {
+        return dictionary;
+    }
+
+    @Override
     public V lookup(K id) { return dictionary.get(id); }
 
     @Override

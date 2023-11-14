@@ -2,6 +2,7 @@ package Model.Statements;
 
 import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Structures.MyIList;
 import Model.Structures.ProgramState;
 import Model.Values.IValue;
@@ -22,7 +23,9 @@ public class PrintStatement implements IStatement {
 
         MyIList<IValue> outputList = state.getOutputList();
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
-        outputList.add(expression.evaluation(symbolTable));
+        MyIHeap heap = state.getHeap();
+
+        outputList.add(expression.evaluation(symbolTable, heap));
 
         return state;
     }

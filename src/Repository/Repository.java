@@ -42,7 +42,7 @@ public class Repository implements IRepository {
         MyIDictionary<String, IValue> symbolTable = getCurrentProgramState().getSymbolTable();
         MyIList<IValue> outputList = getCurrentProgramState().getOutputList();
         MyIDictionary<StringValue, BufferedReader> fileTable = getCurrentProgramState().getFileTable();
-        MyIHeap<Integer, IValue> heap = getCurrentProgramState().getHeap();
+        MyIHeap heap = getCurrentProgramState().getHeap();
 
         MyIStack<IStatement> auxiliaryStack = new MyStack<>();
 

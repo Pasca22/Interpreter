@@ -3,6 +3,7 @@ package Model.Statements;
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
 import Model.Types.IntType;
 import Model.Types.StringType;
@@ -31,6 +32,7 @@ public class ReadFileStatement implements IStatement {
     public ProgramState execute(ProgramState state) throws Exception {
 
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
+        MyIHeap heap = state.getHeap();
 
         if (!symbolTable.isDefined(variableName)) {
             throw new MyException("Variable " + variableName + " is not defined");
@@ -43,7 +45,7 @@ public class ReadFileStatement implements IStatement {
         }
 
         IntValue intValue;
-        IValue expressionValue = expression.evaluation(symbolTable);
+        IValue expressionValue = expression.evaluation(symbolTable, heap);
 
         if (!expressionValue.getType().equals(new StringType())) {
             throw new MyException("The expression is not of StringType");

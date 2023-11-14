@@ -22,6 +22,11 @@ public class RelationalExpression implements Expression {
     }
 
     @Override
+    public String toString() {
+        return e1 + relationalOperation + e2;
+    }
+
+    @Override
     public IValue evaluation(MyIDictionary<String, IValue> table,  MyIHeap heap) throws Exception {
 
         IValue v1, v2;

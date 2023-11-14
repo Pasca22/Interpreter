@@ -1,11 +1,10 @@
 import Controller.Controller;
-import Model.Expressions.ArithmeticExpression;
-import Model.Expressions.ValueExpression;
-import Model.Expressions.VariableExpression;
+import Model.Expressions.*;
 import Model.Statements.*;
 import Model.Structures.*;
 import Model.Types.BoolType;
 import Model.Types.IntType;
+import Model.Types.ReferenceType;
 import Model.Types.StringType;
 import Model.Values.BoolValue;
 import Model.Values.IntValue;
@@ -23,21 +22,31 @@ public class Main {
 
         IStatement s1 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
                 new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(2))), new PrintStatement(new
-                        VariableExpression("v"))));
+                        VariableExpression("v"))
+                )
+        );
 
         IStatement s2 = new CompoundStatement(new VariableDeclarationStatement("a", new IntType()),
                 new CompoundStatement(new VariableDeclarationStatement("b", new IntType()),
                         new CompoundStatement(new AssignmentStatement("a", new ArithmeticExpression("+", new ValueExpression(new IntValue(2)), new
                                 ArithmeticExpression("*", new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5))))),
                                 new CompoundStatement(new AssignmentStatement("b", new ArithmeticExpression("+", new VariableExpression("a"), new ValueExpression(new
-                                        IntValue(1)))), new PrintStatement(new VariableExpression("b"))))));
+                                        IntValue(1)))), new PrintStatement(new VariableExpression("b"))
+                                )
+                        )
+                )
+        );
 
         IStatement s3 = new CompoundStatement(new VariableDeclarationStatement("a", new BoolType()),
                 new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
                         new CompoundStatement(new AssignmentStatement("a", new ValueExpression(new BoolValue(true))),
                                 new CompoundStatement(new IfStatement(new VariableExpression("a"), new AssignmentStatement("v", new ValueExpression(new
                                         IntValue(2))), new AssignmentStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new
-                                        VariableExpression("v"))))));
+                                        VariableExpression("v"))
+                                )
+                        )
+                )
+        );
 
         IStatement s4 = new CompoundStatement(new VariableDeclarationStatement("varf", new StringType()),
                 new CompoundStatement(new AssignmentStatement("varf", new ValueExpression(new StringValue("test.in"))),
@@ -47,7 +56,73 @@ public class Main {
                                                 new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
                                                         new CompoundStatement(new ReadFileStatement(new VariableExpression("varf"), "varc"),
                                                                 new CompoundStatement(new PrintStatement(new VariableExpression("varc")),
-                                                                        new CloseReadFileStatement(new VariableExpression("varf"))))))))));
+                                                                        new CloseReadFileStatement(new VariableExpression("varf"))
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+        IStatement s5 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(4))),
+                        new CompoundStatement(new WhileStatement(
+                                        new RelationalExpression(new VariableExpression("v"), new ValueExpression(new IntValue(0)), ">"),
+                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                new AssignmentStatement("v", new ArithmeticExpression("-", new VariableExpression("v"), new ValueExpression(new IntValue(1))))
+)
+                                ),
+                                new PrintStatement(new VariableExpression("v"))
+                        )
+                )
+        );
+
+        IStatement s6 = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new VariableExpression("v")),
+                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                new PrintStatement(new VariableExpression("a"))
+                                        )
+                                )
+                        )
+                )
+        );
+
+        IStatement s7 = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new ReferenceType(new IntType()))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new VariableExpression("v")),
+                                        new CompoundStatement(new PrintStatement(new HeapReadingExpression(new VariableExpression("v"))),
+                                                new PrintStatement(new ArithmeticExpression("+",
+                                                                new HeapReadingExpression(new HeapReadingExpression(new VariableExpression("a"))),
+                                                                new ValueExpression(new IntValue(5))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+        IStatement s8 = new CompoundStatement(new VariableDeclarationStatement("v", new ReferenceType(new IntType())),
+                new CompoundStatement(new HeapAllocationStatement("v", new ValueExpression(new IntValue(20))),
+                        new CompoundStatement(new PrintStatement(new HeapReadingExpression(new VariableExpression("v"))),
+                                new CompoundStatement(new HeapWritingStatement("v", new ValueExpression(new IntValue(30))),
+                                        new PrintStatement(new ArithmeticExpression("+",
+                                                        new HeapReadingExpression(new VariableExpression("v")),
+                                                        new ValueExpression(new IntValue(5))
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+
+
 
         Scanner input = new Scanner(System.in);
         System.out.print("Enter output file name: ");
@@ -58,6 +133,10 @@ public class Main {
         ProgramState p2 = new ProgramState(s2);
         ProgramState p3 = new ProgramState(s3);
         ProgramState p4 = new ProgramState(s4);
+        ProgramState p5 = new ProgramState(s5);
+        ProgramState p6 = new ProgramState(s6);
+        ProgramState p7 = new ProgramState(s7);
+        ProgramState p8 = new ProgramState(s8);
 
         Repository repository1 = new Repository(p1, fileName);
         Controller controller1 = new Controller(repository1);
@@ -71,12 +150,28 @@ public class Main {
         Repository repository4 = new Repository(p4, fileName);
         Controller controller4 = new Controller(repository4);
 
+        Repository repository5 = new Repository(p5, fileName);
+        Controller controller5 = new Controller(repository5);
+
+        Repository repository6 = new Repository(p6, fileName);
+        Controller controller6 = new Controller(repository6);
+
+        Repository repository7 = new Repository(p7, fileName);
+        Controller controller7 = new Controller(repository7);
+
+        Repository repository8 = new Repository(p8, fileName);
+        Controller controller8 = new Controller(repository8);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", s1.toString(), controller1));
         menu.addCommand(new RunExample("2", s2.toString(), controller2));
         menu.addCommand(new RunExample("3", s3.toString(), controller3));
         menu.addCommand(new RunExample("4", s4.toString(), controller4));
+        menu.addCommand(new RunExample("5", s5.toString(), controller5));
+        menu.addCommand(new RunExample("6", s6.toString(), controller6));
+        menu.addCommand(new RunExample("7", s7.toString(), controller7));
+        menu.addCommand(new RunExample("8", s8.toString(), controller8));
 
         menu.show();
 

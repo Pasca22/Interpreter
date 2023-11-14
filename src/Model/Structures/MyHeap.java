@@ -14,6 +14,16 @@ public class MyHeap implements MyIHeap {
     }
 
     @Override
+    public Map<Integer, IValue> getContent() {
+        return heap;
+    }
+
+    @Override
+    public void setContent(Map<Integer, IValue> newHeap) {
+        heap = newHeap;
+    }
+
+    @Override
     public boolean isDefined(Integer id) {
         return heap.containsKey(id);
     }

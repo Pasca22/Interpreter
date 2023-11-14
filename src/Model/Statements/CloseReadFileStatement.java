@@ -3,6 +3,7 @@ package Model.Statements;
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
 import Model.Types.StringType;
 import Model.Values.IValue;
@@ -27,8 +28,9 @@ public class CloseReadFileStatement implements IStatement {
     public ProgramState execute(ProgramState state) throws Exception {
 
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
+        MyIHeap heap = state.getHeap();
 
-        IValue expressionValue = expression.evaluation(symbolTable);
+        IValue expressionValue = expression.evaluation(symbolTable, heap);
 
         if (!expressionValue.getType().equals(new StringType())) {
             throw new MyException("The expression is not of StringType");

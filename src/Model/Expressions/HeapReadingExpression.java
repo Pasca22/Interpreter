@@ -16,7 +16,7 @@ public class HeapReadingExpression implements Expression {
     }
     @Override
     public String toString() {
-        return "";
+        return "rH(" + expression + ")";
     }
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table,  MyIHeap heap) throws Exception {
@@ -29,7 +29,7 @@ public class HeapReadingExpression implements Expression {
 
         ReferenceValue referenceValue = (ReferenceValue) expressionValue;
 
-        if(! heap.isDefined(referenceValue.getAddress())) {
+        if(!heap.isDefined(referenceValue.getAddress())) {
             throw new MyException("Address not in heap");
         }
 

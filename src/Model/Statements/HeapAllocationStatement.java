@@ -22,7 +22,7 @@ public class HeapAllocationStatement implements IStatement {
     @Override
     public String toString()
     {
-        return "new(" + variableName + ", " + expression + ")";
+        return "new(" + variableName + ", " + expression + ");";
     }
 
     @Override
@@ -41,10 +41,10 @@ public class HeapAllocationStatement implements IStatement {
             throw new MyException("Variable is not of type Reference");
         }
 
-        ReferenceValue referenceValue = (ReferenceValue) variableValue;
+        ReferenceType referenceType = (ReferenceType) variableValue.getType();
         IValue expressionValue = expression.evaluation(symbolTable, heap);
 
-        if (!referenceValue.getType().equals(expressionValue.getType())) {
+        if (!referenceType.getInner().equals(expressionValue.getType())) {
             throw new MyException("Both types should be Reference Type");
         }
 

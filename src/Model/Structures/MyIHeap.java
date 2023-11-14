@@ -8,6 +8,10 @@ public interface MyIHeap {
 
     int getFreeAddress();
 
+    Map<Integer, IValue> getContent();
+
+    void setContent(Map<Integer, IValue> newHeap);
+
     boolean isDefined(Integer id);
 
     IValue lookup(Integer id);

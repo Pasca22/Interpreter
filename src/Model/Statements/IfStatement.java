@@ -3,6 +3,7 @@ package Model.Statements;
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
+import Model.Structures.MyIHeap;
 import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
 import Model.Types.BoolType;
@@ -28,7 +29,9 @@ public class IfStatement implements IStatement {
     public ProgramState execute(ProgramState state) throws Exception {
         MyIStack<IStatement> stack = state.getExeStack();
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
-        IValue condition = expression.evaluation(symbolTable);
+        MyIHeap heap = state.getHeap();
+
+        IValue condition = expression.evaluation(symbolTable, heap);
 
         if (!condition.getType().equals(new BoolType())) {
             throw new MyException("Conditional expression not a boolean");
