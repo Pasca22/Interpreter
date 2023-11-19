@@ -54,7 +54,7 @@ public class Controller {
 
     Map<Integer, IValue> unsafeGarbageCollector(List<Integer> symbolTableAddresses, Map<Integer,IValue> heap){
         return heap.entrySet().stream().
-                filter(e->symbolTableAddresses.contains(e.getKey())).
+                filter(e -> symbolTableAddresses.contains(e.getKey()) || heap.containsKey(e.getKey())).
                         collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
     List<Integer> getAddrFromSymTable(Collection<IValue> symbolTableAddresses){
