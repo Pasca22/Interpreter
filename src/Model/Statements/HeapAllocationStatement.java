@@ -52,7 +52,7 @@ public class HeapAllocationStatement implements IStatement {
         heap.allocate(expressionValue);
         symbolTable.update(variableName, new ReferenceValue(address, expressionValue.getType()));
 
-        return state;
+        return null;
     }
 
     @Override

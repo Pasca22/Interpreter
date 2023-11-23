@@ -121,6 +121,29 @@ public class Main {
                 )
         );
 
+        IStatement s9 = new CompoundStatement(new VariableDeclarationStatement("v", new IntType()),
+                new CompoundStatement(new VariableDeclarationStatement("a", new ReferenceType(new IntType())),
+                        new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(10))),
+                                new CompoundStatement(new HeapAllocationStatement("a", new ValueExpression(new IntValue(22))),
+                                        new CompoundStatement(new ForkStatement(
+                                                        new CompoundStatement(new HeapWritingStatement("a", new ValueExpression(new IntValue(30))),
+                                                                new CompoundStatement(new AssignmentStatement("v", new ValueExpression(new IntValue(32))),
+                                                                        new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                                                new PrintStatement(new HeapReadingExpression(new VariableExpression("a")))
+                                                                        )
+                                                                )
+                                                        )
+                                                ),
+                                                new CompoundStatement(new PrintStatement(new VariableExpression("v")),
+                                                        new PrintStatement(new HeapReadingExpression(new VariableExpression("a")))
+                                                )
+                                        )
+                                )
+                        )
+                )
+        );
+
+
 
 
 
@@ -137,6 +160,7 @@ public class Main {
         ProgramState p6 = new ProgramState(s6);
         ProgramState p7 = new ProgramState(s7);
         ProgramState p8 = new ProgramState(s8);
+        ProgramState p9 = new ProgramState(s9);
 
         Repository repository1 = new Repository(p1, fileName);
         Controller controller1 = new Controller(repository1);
@@ -162,6 +186,9 @@ public class Main {
         Repository repository8 = new Repository(p8, fileName);
         Controller controller8 = new Controller(repository8);
 
+        Repository repository9 = new Repository(p9, fileName);
+        Controller controller9 = new Controller(repository9);
+
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
         menu.addCommand(new RunExample("1", s1.toString(), controller1));
@@ -172,6 +199,7 @@ public class Main {
         menu.addCommand(new RunExample("6", s6.toString(), controller6));
         menu.addCommand(new RunExample("7", s7.toString(), controller7));
         menu.addCommand(new RunExample("8", s8.toString(), controller8));
+        menu.addCommand(new RunExample("9", s9.toString(), controller9));
 
         menu.show();
 

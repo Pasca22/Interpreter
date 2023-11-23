@@ -29,7 +29,7 @@ public class VariableDeclarationStatement implements IStatement {
         } else {
             symbolTable.update(name, type.defaultValue());
         }
-        return state;
+        return null;
     }
 
     @Override

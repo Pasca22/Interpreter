@@ -4,10 +4,13 @@ import Model.Exceptions.MyException;
 import Model.Structures.ProgramState;
 
 import java.io.IOException;
+import java.util.List;
 
 public interface IRepository {
-    ProgramState getCurrentProgramState() throws MyException;
     public void addProgramState(ProgramState ps);
 
-    void logProgramStateExec() throws Exception;
+    List<ProgramState> getProgramStateList();
+    void setProgramStateList(List<ProgramState> l);
+
+    void logProgramStateExec(ProgramState ps);
 }

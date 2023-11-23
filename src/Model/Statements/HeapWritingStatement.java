@@ -54,7 +54,7 @@ public class HeapWritingStatement implements IStatement {
         }
 
         heap.update(referenceValue.getAddress(), expressionValue);
-        return state;
+        return null;
     }
 
     @Override

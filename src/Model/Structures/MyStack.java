@@ -1,5 +1,7 @@
 package Model.Structures;
 
+import Model.Statements.IStatement;
+
 import java.util.Stack;
 public class MyStack<T> implements MyIStack<T> {
 
@@ -27,6 +29,19 @@ public class MyStack<T> implements MyIStack<T> {
 
     @Override
     public String toString() {
-        return stack.toString();
+        String string = "";
+        Stack<T> auxiliaryStack = new Stack<>();
+        while (!stack.isEmpty()) {
+            T statement = stack.pop();
+            string += statement.toString() + "\n";
+            auxiliaryStack.push(statement);
+        }
+
+        while (!auxiliaryStack.isEmpty()) {
+            T statement = auxiliaryStack.pop();
+            stack.push(statement);
+        }
+
+        return string;
     }
 }

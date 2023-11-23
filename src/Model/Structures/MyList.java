@@ -29,6 +29,11 @@ public class MyList<T> implements MyIList<T> {
 
     @Override
     public String toString() {
-        return list.toString();
+        String string = "";
+        for (T t : list) {
+            string += t + "\n";
+        }
+        ;
+        return string;
     }
 }

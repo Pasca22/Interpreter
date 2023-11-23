@@ -55,7 +55,7 @@ public class OpenReadFileStatement implements IStatement  {
         }
 
         fileTable.update(fileName, bufferedReader);
-        return state;
+        return null;
     }
 
     @Override

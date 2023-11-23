@@ -77,7 +77,7 @@ public class ReadFileStatement implements IStatement {
 
         symbolTable.update(this.variableName, intValue);
 
-        return state;
+        return null;
     }
 
     @Override

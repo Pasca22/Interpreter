@@ -54,6 +54,10 @@ public class MyHeap implements MyIHeap {
 
     @Override
     public String toString() {
-        return heap.toString();
+        String string = "";
+        for (Map.Entry<Integer, IValue> s : heap.entrySet()) {
+            string += (s.getKey() + " --> " + s.getValue()) + "\n";
+        }
+        return string;
     }
 }

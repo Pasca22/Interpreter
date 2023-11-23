@@ -40,7 +40,7 @@ public class IfStatement implements IStatement {
         } else {
             stack.push(elseStatement);
         }
-        return state;
+        return null;
     }
 
     @Override

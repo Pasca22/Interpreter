@@ -27,7 +27,7 @@ public class PrintStatement implements IStatement {
 
         outputList.add(expression.evaluation(symbolTable, heap));
 
-        return state;
+        return null;
     }
 
     @Override

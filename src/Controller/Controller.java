@@ -1,58 +1,83 @@
 package Controller;
 
 import Model.Exceptions.MyException;
-import Model.Statements.IStatement;
-import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
 import Model.Values.IValue;
 import Model.Values.ReferenceValue;
 import Repository.IRepository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class Controller {
 
     IRepository repository;
 
+    ExecutorService executor;
+
     public Controller(IRepository repository) {
         this.repository = repository;
+        executor = null;
     }
 
     public void addProgramState(ProgramState state) {
         this.repository.addProgramState(state);
     }
 
-    public void oneStep(ProgramState state) throws Exception {
-        MyIStack<IStatement> stack = state.getExeStack();
+    List<ProgramState> removeCompletedProgram(List<ProgramState> inProgramList) {
+        return inProgramList.stream()
+                .filter(ProgramState::isNotCompleted)
+                .collect(Collectors.toList());
+    }
 
-        if(stack.isEmpty()) {
-            throw new MyException("Program state stack is empty");
-        }
-        IStatement createdStatement = stack.pop();
-        createdStatement.execute(state);
+    public void oneStepAllPrograms(List<ProgramState> programList) throws Exception {
+        programList.forEach(p -> repository.logProgramStateExec(p));
+
+        List<Callable<ProgramState>> callList = programList.stream()
+                .map(p -> (Callable<ProgramState>)(p::oneStep))
+                .toList();
+
+        List<ProgramState> newProgramsList = executor.invokeAll(callList).stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    } catch(InterruptedException | ExecutionException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(Objects::nonNull)
+                .toList();
+
+        programList.addAll(newProgramsList);
+        programList.forEach(p -> repository.logProgramStateExec(p));
+        repository.setProgramStateList(programList);
+
     }
 
     public void allSteps() throws Exception {
-        ProgramState programState;
-            programState = repository.getCurrentProgramState();
-            repository.logProgramStateExec();
+        executor = Executors.newFixedThreadPool(2);
 
-        while (!programState.getExeStack().isEmpty()) {
-            oneStep(programState);
-            repository.logProgramStateExec();
+        List<ProgramState> programStateList = removeCompletedProgram(repository.getProgramStateList());
+        while(!programStateList.isEmpty()){
+            programStateList
+                    .forEach(program -> this.garbageCollector(
+                            this.getAddrFromSymTable(program.getSymbolTable().getContent().values()),
+                            program.getHeap().getContent()));
 
-            programState.getHeap().setContent(unsafeGarbageCollector(
-                    getAddrFromSymTable(programState.getSymbolTable().getContent().values()),
-                    programState.getHeap().getContent()));
-
-            repository.logProgramStateExec();
+            oneStepAllPrograms(programStateList);
+            programStateList = removeCompletedProgram(repository.getProgramStateList());
         }
+        executor.shutdownNow();
+
+        repository.setProgramStateList(programStateList);
     }
 
-    Map<Integer, IValue> unsafeGarbageCollector(List<Integer> symbolTableAddresses, Map<Integer,IValue> heap){
+
+    Map<Integer, IValue> garbageCollector(List<Integer> symbolTableAddresses, Map<Integer,IValue> heap){
         return heap.entrySet().stream().
                 filter(e -> symbolTableAddresses.contains(e.getKey()) || heap.containsKey(e.getKey())).
                         collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

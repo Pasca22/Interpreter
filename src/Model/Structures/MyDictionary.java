@@ -1,5 +1,7 @@
 package Model.Structures;
 
+import Model.Values.IValue;
+
 import java.util.HashMap;
 import java.util.Map;
 
