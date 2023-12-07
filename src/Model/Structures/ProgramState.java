@@ -17,6 +17,9 @@ public class ProgramState {
     IStatement originalProgram;
     FileTable fileTable;
     MyIHeap heap;
+
+    TypeTable typeTable;
+
     static Vector<Integer> usedId = new Vector<>();
 
     @Override
@@ -38,26 +41,32 @@ public class ProgramState {
         return newId;
     }
 
-    public ProgramState(IStatement program) {
+    public ProgramState(IStatement program) throws Exception {
         exeStack = new MyStack<>();
         symbolTable = new SymbolTable();
         outputList = new MyList<>();
         fileTable = new FileTable();
         heap = new MyHeap();
+        typeTable = new TypeTable();
+
         originalProgram = program.deepCopy();
+        this.originalProgram.typeCheck(typeTable);
         exeStack.push(originalProgram);
 
         id = generateId();
         usedId.add(id);
     }
 
-    public ProgramState(MyIStack<IStatement> exeStack, SymbolTable symbolTable, MyIList<IValue> outputList, FileTable fileTable, MyIHeap heap,IStatement program) {
+    public ProgramState(MyIStack<IStatement> exeStack, SymbolTable symbolTable, MyIList<IValue> outputList, FileTable fileTable, MyIHeap heap, TypeTable typeTable,IStatement program) throws Exception {
         this.exeStack = exeStack;
         this.symbolTable = symbolTable;
         this.outputList = outputList;
         this.fileTable = fileTable;
         this.heap = heap;
+        this.typeTable = typeTable;
+
         this.originalProgram = program.deepCopy();
+        this.originalProgram.typeCheck(typeTable);
         this.exeStack.push(this.originalProgram);
 
         id = generateId();
@@ -77,6 +86,8 @@ public class ProgramState {
     public FileTable getFileTable() { return fileTable; }
 
     public MyIHeap getHeap() {return heap;}
+
+    public TypeTable getTypeTable() {return typeTable;}
 
     public boolean isNotCompleted(){
         return !exeStack.isEmpty();

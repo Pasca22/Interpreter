@@ -1,6 +1,7 @@
 package Model.Statements;
 
 import Model.Structures.*;
+import Model.Types.IType;
 import Model.Values.IValue;
 import Model.Values.StringValue;
 
@@ -27,8 +28,14 @@ public class ForkStatement implements IStatement {
         SymbolTable symbolTable = state.getSymbolTable().deepCopy();
         MyIList<IValue> outputList = state.getOutputList();
         FileTable fileTable = state.getFileTable();
+        TypeTable typeTable = state.getTypeTable().deepCopy();
 
-        return new ProgramState(new MyStack<>(), symbolTable, outputList, fileTable, heap, statement);
+        return new ProgramState(new MyStack<>(), symbolTable, outputList, fileTable, heap, typeTable, statement);
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        return statement.typeCheck(typeEnv);
     }
 
     @Override

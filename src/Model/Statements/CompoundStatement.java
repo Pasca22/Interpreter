@@ -1,7 +1,9 @@
 package Model.Statements;
 
+import Model.Structures.MyIDictionary;
 import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 
 public class CompoundStatement implements IStatement {
     IStatement firstStatement;
@@ -22,6 +24,11 @@ public class CompoundStatement implements IStatement {
         stack.push(secondStatement);
         stack.push(firstStatement);
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        return secondStatement.typeCheck(firstStatement.typeCheck(typeEnv));
     }
 
     @Override

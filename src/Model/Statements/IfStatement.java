@@ -2,11 +2,9 @@ package Model.Statements;
 
 import Model.Exceptions.MyException;
 import Model.Expressions.Expression;
-import Model.Structures.MyIDictionary;
-import Model.Structures.MyIHeap;
-import Model.Structures.MyIStack;
-import Model.Structures.ProgramState;
+import Model.Structures.*;
 import Model.Types.BoolType;
+import Model.Types.IType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
 
@@ -41,6 +39,19 @@ public class IfStatement implements IStatement {
             stack.push(elseStatement);
         }
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType typeExpression = expression.typeCheck(typeEnv);
+        if (typeExpression.equals(new BoolType())) {
+            thenStatement.typeCheck(((TypeTable)typeEnv).deepCopy());
+            elseStatement.typeCheck(((TypeTable)typeEnv).deepCopy());
+            return typeEnv;
+        }
+        else {
+            throw new MyException("The condition of IF has not the type bool");
+        }
     }
 
     @Override

@@ -5,6 +5,7 @@ import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 import Model.Types.StringType;
 import Model.Values.IValue;
 import Model.Values.StringValue;
@@ -55,6 +56,17 @@ public class CloseReadFileStatement implements IStatement {
 
         fileTable.remove(fileName);
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType expressionType = this.expression.typeCheck(typeEnv);
+
+        if (!(expressionType instanceof StringType)) {
+            throw new MyException("The given expression is not of StringType");
+        }
+
+        return typeEnv;
     }
 
     @Override

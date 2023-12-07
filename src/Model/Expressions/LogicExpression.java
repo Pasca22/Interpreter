@@ -4,6 +4,8 @@ import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
 import Model.Types.BoolType;
+import Model.Types.IType;
+import Model.Types.IntType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
 
@@ -54,6 +56,22 @@ public class LogicExpression implements Expression {
         }
 
 
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType type1, type2;
+        type1=e1.typeCheck(typeEnv);
+        type2=e2.typeCheck(typeEnv);
+        if (type1.equals(new BoolType())) {
+            if (type2.equals(new BoolType())) {
+                return new BoolType();
+            } else {
+                throw new MyException("second operand is not an integer");
+            }
+        }else {
+            throw new MyException("first operand is not an integer");
+        }
     }
 
     @Override

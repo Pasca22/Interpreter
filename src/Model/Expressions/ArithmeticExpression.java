@@ -3,6 +3,7 @@ package Model.Expressions;
 import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
+import Model.Types.IType;
 import Model.Values.IValue;
 import Model.Values.IntValue;
 import Model.Types.IntType;
@@ -48,6 +49,22 @@ public class ArithmeticExpression implements Expression {
         } else
             throw new MyException("first operand is not an integer");
         return null;
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType type1, type2;
+        type1=e1.typeCheck(typeEnv);
+        type2=e2.typeCheck(typeEnv);
+        if (type1.equals(new IntType())) {
+            if (type2.equals(new IntType())) {
+                return new IntType();
+            } else {
+                throw new MyException("second operand is not an integer");
+            }
+        }else {
+            throw new MyException("first operand is not an integer");
+        }
     }
 
     @Override

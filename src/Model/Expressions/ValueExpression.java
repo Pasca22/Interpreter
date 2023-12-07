@@ -2,6 +2,7 @@ package Model.Expressions;
 
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
+import Model.Types.IType;
 import Model.Types.IntType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
@@ -22,6 +23,11 @@ public class ValueExpression implements Expression {
     @Override
     public IValue evaluation(MyIDictionary<String, IValue> table,  MyIHeap heap) throws Exception {
         return value;
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        return value.getType();
     }
 
     @Override

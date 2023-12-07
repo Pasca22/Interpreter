@@ -3,6 +3,7 @@ package Model.Expressions;
 import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
+import Model.Types.IType;
 import Model.Values.IValue;
 
 public class VariableExpression implements Expression {
@@ -25,6 +26,11 @@ public class VariableExpression implements Expression {
         }
         throw new MyException("Variable " + id + " is not defined");
 
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        return typeEnv.lookup(id);
     }
 
     @Override

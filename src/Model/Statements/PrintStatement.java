@@ -5,6 +5,7 @@ import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
 import Model.Structures.MyIList;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 import Model.Values.IValue;
 
 public class PrintStatement implements IStatement {
@@ -28,6 +29,12 @@ public class PrintStatement implements IStatement {
         outputList.add(expression.evaluation(symbolTable, heap));
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        expression.typeCheck(typeEnv);
+        return typeEnv;
     }
 
     @Override

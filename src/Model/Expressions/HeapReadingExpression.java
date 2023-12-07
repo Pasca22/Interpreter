@@ -3,6 +3,7 @@ package Model.Expressions;
 import Model.Exceptions.MyException;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
+import Model.Types.IType;
 import Model.Types.ReferenceType;
 import Model.Values.IValue;
 import Model.Values.ReferenceValue;
@@ -34,6 +35,15 @@ public class HeapReadingExpression implements Expression {
         }
 
         return heap.lookup(referenceValue.getAddress());
+    }
+
+    @Override
+    public IType typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType type = expression.typeCheck(typeEnv);
+        if (type instanceof ReferenceType referenceType) {
+            return referenceType.getInner();
+        } else
+            throw new MyException("the rH argument is not a Reference Type");
     }
 
     @Override

@@ -5,6 +5,7 @@ import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 import Model.Types.ReferenceType;
 import Model.Values.IValue;
 import Model.Values.ReferenceValue;
@@ -53,6 +54,18 @@ public class HeapAllocationStatement implements IStatement {
         symbolTable.update(variableName, new ReferenceValue(address, expressionValue.getType()));
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType typeVariable = typeEnv.lookup(variableName);
+        IType typeExpression = expression.typeCheck(typeEnv);
+        if (typeVariable.equals(new ReferenceType(typeExpression))) {
+            return typeEnv;
+        }
+        else {
+            throw new MyException("NEW stmt: right hand side and left hand side have different types ");
+        }
     }
 
     @Override

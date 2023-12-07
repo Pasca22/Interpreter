@@ -5,6 +5,7 @@ import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIHeap;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 import Model.Types.IntType;
 import Model.Types.StringType;
 import Model.Values.IValue;
@@ -78,6 +79,25 @@ public class ReadFileStatement implements IStatement {
         symbolTable.update(this.variableName, intValue);
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType expressionType = expression.typeCheck(typeEnv);
+
+        if (!(expressionType instanceof StringType)) {
+            throw new MyException("The given expression is not of type StringType");
+        }
+        if (!typeEnv.isDefined(this.variableName)) {
+            throw new MyException("The given variable name is not defined!");
+        }
+
+        IType variableType = typeEnv.lookup(variableName);
+        if (!(variableType instanceof IntType)) {
+            throw new MyException("The given variable is not of type IntType.");
+        }
+
+        return typeEnv;
     }
 
     @Override

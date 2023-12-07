@@ -1,9 +1,13 @@
 package Model.Statements;
 
+import Model.Structures.MyIDictionary;
 import Model.Structures.ProgramState;
+import Model.Types.IType;
 
 public interface IStatement {
-    public ProgramState execute(ProgramState state) throws Exception;
+    ProgramState execute(ProgramState state) throws Exception;
 
-    public IStatement deepCopy();
+    MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception;
+
+    IStatement deepCopy();
 }

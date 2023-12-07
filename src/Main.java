@@ -143,63 +143,76 @@ public class Main {
                 )
         );
 
-
-
-
-
         Scanner input = new Scanner(System.in);
         System.out.print("Enter output file name: ");
         String fileName = input.next();
         System.out.println();
 
-        ProgramState p1 = new ProgramState(s1);
-        ProgramState p2 = new ProgramState(s2);
-        ProgramState p3 = new ProgramState(s3);
-        ProgramState p4 = new ProgramState(s4);
-        ProgramState p5 = new ProgramState(s5);
-        ProgramState p6 = new ProgramState(s6);
-        ProgramState p7 = new ProgramState(s7);
-        ProgramState p8 = new ProgramState(s8);
-        ProgramState p9 = new ProgramState(s9);
-
-        Repository repository1 = new Repository(p1, fileName);
-        Controller controller1 = new Controller(repository1);
-
-        Repository repository2 = new Repository(p2, fileName);
-        Controller controller2 = new Controller(repository2);
-
-        Repository repository3 = new Repository(p3, fileName);
-        Controller controller3 = new Controller(repository3);
-
-        Repository repository4 = new Repository(p4, fileName);
-        Controller controller4 = new Controller(repository4);
-
-        Repository repository5 = new Repository(p5, fileName);
-        Controller controller5 = new Controller(repository5);
-
-        Repository repository6 = new Repository(p6, fileName);
-        Controller controller6 = new Controller(repository6);
-
-        Repository repository7 = new Repository(p7, fileName);
-        Controller controller7 = new Controller(repository7);
-
-        Repository repository8 = new Repository(p8, fileName);
-        Controller controller8 = new Controller(repository8);
-
-        Repository repository9 = new Repository(p9, fileName);
-        Controller controller9 = new Controller(repository9);
-
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
-        menu.addCommand(new RunExample("1", s1.toString(), controller1));
-        menu.addCommand(new RunExample("2", s2.toString(), controller2));
-        menu.addCommand(new RunExample("3", s3.toString(), controller3));
-        menu.addCommand(new RunExample("4", s4.toString(), controller4));
-        menu.addCommand(new RunExample("5", s5.toString(), controller5));
-        menu.addCommand(new RunExample("6", s6.toString(), controller6));
-        menu.addCommand(new RunExample("7", s7.toString(), controller7));
-        menu.addCommand(new RunExample("8", s8.toString(), controller8));
-        menu.addCommand(new RunExample("9", s9.toString(), controller9));
+
+        try {
+            ProgramState p1 = new ProgramState(s1);
+            Repository repository1 = new Repository(p1, fileName);
+            Controller controller1 = new Controller(repository1);
+            menu.addCommand(new RunExample("1", s1.toString(), controller1));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p2 = new ProgramState(s2);
+            Repository repository2 = new Repository(p2, fileName);
+            Controller controller2 = new Controller(repository2);
+            menu.addCommand(new RunExample("2", s2.toString(), controller2));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p3 = new ProgramState(s3);
+            Repository repository3 = new Repository(p3, fileName);
+            Controller controller3 = new Controller(repository3);
+            menu.addCommand(new RunExample("3", s3.toString(), controller3));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p4 = new ProgramState(s4);
+            Repository repository4 = new Repository(p4, fileName);
+            Controller controller4 = new Controller(repository4);
+            menu.addCommand(new RunExample("4", s4.toString(), controller4));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p5 = new ProgramState(s5);
+            Repository repository5 = new Repository(p5, fileName);
+            Controller controller5 = new Controller(repository5);
+            menu.addCommand(new RunExample("5", s5.toString(), controller5));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p6 = new ProgramState(s6);
+            Repository repository6 = new Repository(p6, fileName);
+            Controller controller6 = new Controller(repository6);
+            menu.addCommand(new RunExample("6", s6.toString(), controller6));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p7 = new ProgramState(s7);
+            Repository repository7 = new Repository(p7, fileName);
+            Controller controller7 = new Controller(repository7);
+            menu.addCommand(new RunExample("7", s7.toString(), controller7));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p8 = new ProgramState(s8);
+            Repository repository8 = new Repository(p8, fileName);
+            Controller controller8 = new Controller(repository8);
+            menu.addCommand(new RunExample("8", s8.toString(), controller8));
+        } catch (Exception ignored) {}
+
+        try {
+            ProgramState p9 = new ProgramState(s9);
+            Repository repository9 = new Repository(p9, fileName);
+            Controller controller9 = new Controller(repository9);
+            menu.addCommand(new RunExample("9", s9.toString(), controller9));
+        } catch (Exception ignored) {}
 
         menu.show();
 

@@ -5,7 +5,9 @@ import Model.Expressions.Expression;
 import Model.Structures.MyIDictionary;
 import Model.Structures.MyIStack;
 import Model.Structures.ProgramState;
+import Model.Structures.TypeTable;
 import Model.Types.BoolType;
+import Model.Types.IType;
 import Model.Values.BoolValue;
 import Model.Values.IValue;
 
@@ -21,7 +23,7 @@ public class WhileStatement implements IStatement {
 
     @Override
     public String toString() {
-        return "while (" + this.expression.toString() + ") { " + this.statement.toString() + " }";
+        return "while (" + expression.toString() + ") { " + statement.toString() + " }";
     }
     @Override
     public ProgramState execute(ProgramState state) throws Exception {
@@ -29,7 +31,7 @@ public class WhileStatement implements IStatement {
         MyIStack<IStatement> executionStack = state.getExeStack();
         MyIDictionary<String, IValue> symbolTable = state.getSymbolTable();
 
-        IValue expressionValue = this.expression.evaluation(symbolTable, state.getHeap());
+        IValue expressionValue = expression.evaluation(symbolTable, state.getHeap());
 
         if (!expressionValue.getType().equals(new BoolType())) {
             throw new MyException("The expression is not a logic expression");
@@ -40,10 +42,20 @@ public class WhileStatement implements IStatement {
         if (expressionTruthValue.getValue())
         {
             executionStack.push(this);
-            executionStack.push(this.statement);
+            executionStack.push(statement);
         }
 
         return null;
+    }
+
+    @Override
+    public MyIDictionary<String, IType> typeCheck(MyIDictionary<String, IType> typeEnv) throws Exception {
+        IType expressionType = expression.typeCheck(typeEnv);
+
+        if (!(expressionType instanceof BoolType)) {
+            throw new MyException("The expression is not a logic expression.");
+        }
+        return statement.typeCheck(((TypeTable)typeEnv).deepCopy());
     }
 
     @Override
